@@ -1,0 +1,29 @@
+<% if logged_in? %>
+  <div class="row">
+    <aside class="col-sm-4">
+      <%= form_with(model: @task, local: true) do |f| %>
+        <div class="form-group">
+          <label for="task">タスク</label>
+          <%= f.text_area :content, class: 'form-control', rows: 5 %>
+        </div>
+        <div class="form-group">
+          <label for="status">ステータス</label>
+          <%= f.text_area :status, class: 'form-control', rows: 5 %>
+        </div>
+        <%= f.hidden_field :user_id, value: session[:user_id] %>
+        <%= f.submit 'タスク登録', class: 'btn btn-primary btn-block' %>
+      <% end %>
+    </aside>
+    <div class="col-sm-8">
+      <%= render 'tasks/tasks', tasks: @tasks %>
+    </div>
+  </div>
+
+<% else %>
+  <div class="center jumbotron">
+    <div class="text-center">
+      <h1>Tasklistへようこそ</h1>
+      <%= link_to 'いますぐユーザ登録', signup_path, class: 'btn btn-lg btn-primary' %>
+    </div>
+  </div>
+<% end %>
